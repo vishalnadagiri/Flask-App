@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Access Manager</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>API Access Manager</h1>
+        
+        <!-- Feedback Message -->
+        <div id="feedback-message" class="feedback-message" aria-live="polite"></div>
+        
+        <div class="tabs">
+            <div class="tab-button active" data-tab="add-user" aria-controls="add-user" role="tab">ADD USER</div>
+            <div class="tab-button" data-tab="remove-user" aria-controls="remove-user" role="tab">REMOVE USER</div>
+        </div>
+        
+        <!-- Add User Tab -->
+        <div id="add-user" class="tab-content active" role="tabpanel">
+            <form id="add-user-form">
+                <div class="form-group">
+                    <label for="add_user_id">User ID:</label>
+                    <input type="text" id="add_user_id" placeholder="Enter user ID">
+                </div>
+                <div class="form-group">
+                    <label for="add_api_dropdown">Select API:</label>
+                    <select id="add_api_dropdown">
+                        <option value="">Select an API</option>
+                        {% for api in apis %}
+                        <option value="{{ api }}">{{ api }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="button" id="add_to_list">Add</button>
+                </div>
+                <div class="selected-apis">
+                    <h2>Selected APIs:</h2>
+                    <ul id="add_api_list"></ul>
+                </div>
+                <button type="button" id="submit_add_user" disabled>Add User</button>
+            </form>
+        </div>
+        
+        <!-- Remove User Tab -->
+        <div id="remove-user" class="tab-content" role="tabpanel">
+            <form id="remove-user-form">
+                <div class="form-group">
+                    <label for="remove_user_id">User ID:</label>
+                    <input type="text" id="remove_user_id" placeholder="Enter user ID">
+                </div>
+                <button type="button" id="fetch_user_apis">Fetch APIs</button>
+                <div class="form-group">
+                    <h2>APIs:</h2>
+                    <ul id="remove_api_list"></ul>
+                </div>
+                <button type="button" id="remove_selected_apis" disabled>Remove Selected APIs</button>
+            </form>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
